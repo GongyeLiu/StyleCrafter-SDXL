@@ -1,0 +1,61 @@
+model:
+  pretrained_model_name_or_path: stabilityai/stable-diffusion-xl-base-1.0
+  image_encoder_path: pretrained_ckpts/image_encoder
+  model: 
+    target: models.stylecrafter.StyleCrafter
+    params:
+      scale: 1.0
+      use_norm: true
+      text_dim: 2048
+      style_dim: 2048
+      image_context_config:
+        target: models.encoder.QueryTransformer
+        params:
+          embedding_dim: 1280
+          output_dim: 2048
+          num_heads: 20
+          num_queries: 16
+          n_layers: 4
+      scale_predictor_config:
+        target: models.encoder.QueryTransformer
+        params:
+          embedding_dim: 512
+          output_dim: 512
+          num_heads: 8
+          num_queries: 70
+          n_layers: 2
+
+trainer:
+  mixed_precision: bf16
+  report_to: "tensorboard"
+  learning_rate: 5e-5
+  weight_decay: 0.0
+  max_train_steps: 80000
+  noise_offset: ~
+
+  gradient_accumulation_steps: 2
+  log_steps: 50
+  save_steps: 2000
+
+data:
+  tar_base: [
+    "PUT_YOUR_OWN_DATA_PATH_HERE"
+  ]
+  batch_size: 8
+  num_workers: 8
+  multinode: True
+  dataset_config:
+    shards: '*.tar'
+    shuffle: 10000
+    target_size: 512
+    style_transforms_config:
+    - target: torchvision.transforms.Resize
+      params:
+        size: 800
+    - target: torchvision.transforms.RandomCrop
+      params:
+        size: [512,512]
+    - target: torchvision.transforms.Resize
+      params:
+        size: [224, 224]
+          
