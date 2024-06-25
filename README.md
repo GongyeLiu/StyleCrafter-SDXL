@@ -7,7 +7,7 @@ Hi, this is an official implementation of [StyleCrafter](https://github.com/Gong
 We train StyleCrafter on SDXL to further enhance its generated quality for style-guided image generation.
 
 
-**TL;DR**: Higher Resolution(1024×1024)!!  More Visually Pleasing!!
+**TL;DR: Higher Resolution(1024×1024)!  More Visually Pleasing!**
 
 
 ## ⭐ Showcases
