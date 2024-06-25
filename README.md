@@ -23,8 +23,8 @@ We train StyleCrafter on SDXL to further enhance its generated quality for style
 ### Step 1: Install Python Environment
 
 ```bash
-conda create -n diffusers python=3.9
-conda activate diffusers
+conda create -n style_crafter python=3.9
+conda activate style_crafter
 
 conda install cudatoolkit=11.8 cudnn
 
